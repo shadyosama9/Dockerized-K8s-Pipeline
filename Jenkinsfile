@@ -52,7 +52,7 @@ pipeline{
             }
         }
 
-        stage ('SonarCloud Analysis') {
+        stage ('SonarQube Analysis') {
 
             environment {
              scannerHome = tool 'sonarscanner4'
@@ -91,7 +91,7 @@ pipeline{
 
             script {
 
-                docker.withRegistry('' , docker_cred)
+                docker.withRegistry("https://hub.docker.com", docker_cred)
                 dockerImg.push ("V$BUILD_NUMBER")
                 dockerImg.push ("latest")
             }
