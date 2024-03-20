@@ -24,7 +24,6 @@ pipeline{
                 
             }
         }
-    }
     
         stage('Unit Test With Maven'){
             steps {
@@ -107,4 +106,5 @@ pipeline{
             sh "helm --upgrade --force vpro-stack helm/vprofilecharts --set appimg=${docker_registry}:V${BUILD_NUMBER} --namespace prod"
         }
     }
+  }
 }
