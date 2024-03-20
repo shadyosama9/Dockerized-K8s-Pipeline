@@ -2,6 +2,10 @@ pipeline{
 
     agent any
 
+    tools {
+        maven 'maven3'
+    }
+
     environment {
 
         docker_registry = "shady25/vproapp-kube"
