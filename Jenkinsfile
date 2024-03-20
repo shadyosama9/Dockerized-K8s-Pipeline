@@ -10,6 +10,7 @@ pipeline{
 
         docker_registry = "shady25/vproapp-kube"
         docker_cred = "dockerhub"
+        dockerImg = ''
     }
 
     stages{
