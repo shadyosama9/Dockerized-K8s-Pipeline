@@ -10,6 +10,7 @@ pipeline{
 
         docker_registry = "shady25/vproapp-kube"
         docker_cred = "dockerhub"
+        KUBECONFIG = '/opt/jenkins-slave/.kube/config'
     }
 
     stages{
@@ -111,8 +112,9 @@ pipeline{
 
         agent {label 'KOPS'}
         steps {
-            
-            sh "helm upgrade --install --force vpro-stack helm/vprofilecharts --set appimg=${docker_registry}:V${BUILD_NUMBER} --namespace prod"
+            withEnv(['KUBECONFIG=$KUBECONFIG']) {
+                sh "helm upgrade --install --force vpro-stack helm/vprofilecharts --set appimg=${docker_registry}:V${BUILD_NUMBER} --namespace prod"
+            }
         }
     }
   }
