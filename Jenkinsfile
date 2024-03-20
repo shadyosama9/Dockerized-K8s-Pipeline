@@ -10,7 +10,6 @@ pipeline{
 
         docker_registry = "shady25/vproapp-kube"
         docker_cred = "dockerhub"
-        dockerImg = ''
     }
 
     stages{
@@ -92,7 +91,7 @@ pipeline{
 
             script {
 
-                docker.withRegistry("https://hub.docker.com", docker_cred){
+                docker.withRegistry('', docker_cred){
                     dockerImg.push ("V$BUILD_NUMBER")
                     dockerImg.push ("latest")
                 }
