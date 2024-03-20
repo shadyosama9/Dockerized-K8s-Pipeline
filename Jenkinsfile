@@ -59,9 +59,9 @@ pipeline{
             }
 
             steps {
-                withSonarQubeEnv('SonarCloud') {
+                withSonarQubeEnv('MySonar') {
                     sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ci-cd-kube \
-                   -Dsonar.organization=devops-112  \
+                   -Dsonar.projectName=Kube-CICD
                    -Dsonar.projectVersion=1.0 \
                    -Dsonar.sources=src/ \
                    -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
