@@ -30,52 +30,52 @@ pipeline{
             }
         }
     
-        // stage('Unit Test With Maven'){
-        //     steps {
-        //         sh 'mvn test'
-        //     }
-        // }
+        stage('Unit Test With Maven'){
+            steps {
+                sh 'mvn test'
+            }
+        }
 
-        // stage('Integration Test'){
-        //     steps {
-        //         sh 'mvn verify -DskipUnitTests'
-        //     }
-        // }
+        stage('Integration Test'){
+            steps {
+                sh 'mvn verify -DskipUnitTests'
+            }
+        }
 
-        // stage ('Code Analysis Wth Checkstyle'){
-        //     steps {
-        //         sh 'mvn checkstyle:checkstyle'
-        //     }
-        //     post {
-        //         success {
-        //             echo 'Generated Analysis Result'
-        //         }
-        //     }
-        // }
+        stage ('Code Analysis Wth Checkstyle'){
+            steps {
+                sh 'mvn checkstyle:checkstyle'
+            }
+            post {
+                success {
+                    echo 'Generated Analysis Result'
+                }
+            }
+        }
 
-    //     stage ('SonarQube Analysis') {
+        stage ('SonarQube Analysis') {
 
-    //         environment {
-    //          scannerHome = tool 'sonarscanner4'
-    //         }
+            environment {
+             scannerHome = tool 'sonarscanner4'
+            }
 
-    //         steps {
-    //             withSonarQubeEnv('MySonar') {
-    //                 sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
-    //                -Dsonar.projectName=vprofile-repo \
-    //                -Dsonar.projectVersion=1.0 \
-    //                -Dsonar.sources=src/ \
-    //                -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
-    //                -Dsonar.junit.reportsPath=target/surefire-reports/ \
-    //                -Dsonar.jacoco.reportsPath=target/jacoco.exec \
-    //                -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
-    //             }
+            steps {
+                withSonarQubeEnv('MySonar') {
+                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=vprofile \
+                   -Dsonar.projectName=vprofile-repo \
+                   -Dsonar.projectVersion=1.0 \
+                   -Dsonar.sources=src/ \
+                   -Dsonar.java.binaries=target/test-classes/com/visualpathit/account/controllerTest/ \
+                   -Dsonar.junit.reportsPath=target/surefire-reports/ \
+                   -Dsonar.jacoco.reportsPath=target/jacoco.exec \
+                   -Dsonar.java.checkstyle.reportPaths=target/checkstyle-result.xml'''
+                }
 
-    //             timeout(time: 10, unit: 'MINUTES') {
-    //                 waitForQualityGate abortPipeline: true
-    //             }
-    //     }
-    // }
+                timeout(time: 10, unit: 'MINUTES') {
+                    waitForQualityGate abortPipeline: true
+                }
+        }
+    }
 
     stage ('Building Docker App Image'){
         steps {
