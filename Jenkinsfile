@@ -112,7 +112,7 @@ pipeline{
         agent {label 'KOPS'}
         steps {
             
-            sh "helm --upgrade --install --force vpro-stack helm/vprofilecharts --set appimg=${docker_registry}:V${BUILD_NUMBER} --namespace prod"
+            sh "helm upgrade --install --force vpro-stack helm/vprofilecharts --set appimg=${docker_registry}:V${BUILD_NUMBER} --namespace prod"
         }
     }
   }
