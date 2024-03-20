@@ -4,8 +4,8 @@ pipeline{
 
     environment {
 
-        docker-registry = "shady25/vproapp-kube"
-        docker-cred = "dockerhub"
+        docker_registry = "shady25/vproapp-kube"
+        docker_cred = "dockerhub"
     }
 
     stages{
@@ -74,7 +74,7 @@ pipeline{
 
             script {
 
-                dockerImg = docker.build docker-registry + ":V$BUILD_NUMBER"
+                dockerImg = docker.build docker_registry + ":V$BUILD_NUMBER"
             }
         }
     }
@@ -84,7 +84,7 @@ pipeline{
 
             script {
 
-                docker.withRegistry('' , docker-cred)
+                docker.withRegistry('' , docker_cred)
                 dockerImg.push ("V$BUILD_NUMBER")
                 dockerImg.push ("latest")
             }
@@ -94,7 +94,7 @@ pipeline{
     stage ('Removing Unused Docker Image'){
         steps {
 
-            sh "docker rmi $docker-registry:V$BUILD_NUMBER"
+            sh "docker rmi $docker_registry:V$BUILD_NUMBER"
         }
     }
 
@@ -104,7 +104,7 @@ pipeline{
         agent {label 'KOPS'}
         steps {
             
-            sh "helm --upgrade --force vpro-stack helm/vprofilecharts --set appimg=${docker-registry}:V${BUILD_NUMBER} --namespace prod"
+            sh "helm --upgrade --force vpro-stack helm/vprofilecharts --set appimg=${docker_registry}:V${BUILD_NUMBER} --namespace prod"
         }
     }
 }
