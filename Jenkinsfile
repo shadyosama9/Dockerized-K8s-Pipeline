@@ -113,9 +113,9 @@ pipeline{
         agent {label 'KOPS'}
         steps {
             echo "KUBECONFIG: $KUBECONFIG"
-            withEnv(['KUBECONFIG=$KUBECONFIG']) {
-                sh "helm upgrade --install --force vpro-stack helm/vprofilecharts --set appimg=${docker_registry}:V${BUILD_NUMBER} --namespace prod"
-            }
+            
+                sh "KUBECONFIG=$KUBECONFIG helm upgrade --install --force vpro-stack helm/vprofilecharts --set appimg=${docker_registry}:V${BUILD_NUMBER} --namespace prod"
+            
         }
     }
   }
