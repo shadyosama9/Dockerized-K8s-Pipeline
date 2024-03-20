@@ -4,8 +4,8 @@ pipeline{
 
     environment {
 
-        docker-registry = 'shady25/vproapp-kube'
-        docker-cred = 'dockerhub'
+        docker-registry = "shady25/vproapp-kube"
+        docker-cred = "dockerhub"
     }
 
     stages{
