@@ -53,10 +53,14 @@ pipeline{
         }
 
         stage ('SonarCloud Analysis') {
+
+            environment {
+             scannerHome = tool 'sonarscanner4'
+            }
+
             steps {
                 withSonarQubeEnv('SonarCloud') {
-                    sh '''sonar-scanner \
-                   -Dsonar.projectKey=ci-cd-kube \
+                    sh '''${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ci-cd-kube \
                    -Dsonar.organization=devops-112  \
                    -Dsonar.projectVersion=1.0 \
                    -Dsonar.sources=src/ \
