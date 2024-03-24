@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vproapp
-  labels: 
+  labels:
     app: vproapp
 spec:
   replicas: 1
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: vproapp
-        image: {{ .Values.appimg}}
+        image: {? {.Values.appimg: ''} : ''}
         ports:
         - name: vproapp-port
           containerPort: 8080
@@ -27,3 +27,4 @@ spec:
       - name: init-memcache
         image: busybox
         command: ['sh', '-c', 'until nslookup vprocache01.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done;']
+
