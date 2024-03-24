@@ -34,7 +34,7 @@ metadata:
 spec:
   ports:
   - port: 80
-#    nodePort: 31001
+    #    nodePort: 31001
     targetPort: vproapp-port
     protocol: TCP
   selector:
@@ -54,3 +54,4 @@ spec:
   minReplicas: 1
   maxReplicas: 10
   targetCPUUtilizationPercentage: 50
+

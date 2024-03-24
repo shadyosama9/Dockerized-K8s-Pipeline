@@ -13,6 +13,6 @@ spec:
       containerPort: 3306
 
     env:
-     - name: MYSQL_ROOT_PASSWORD
-       value: "vprodbpass"
+    - name: MYSQL_ROOT_PASSWORD
+      value: "vprodbpass"
 
